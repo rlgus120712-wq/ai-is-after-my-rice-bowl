@@ -28,7 +28,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ sl
   const { data: updated, error: updateError } = await supabase.from('blog_posts').update({
     title: title.trim(),
     content: content.trim(),
-    excerpt: excerpt?.trim() || content.trim().slice(0, 150) + '...',
+    excerpt: excerpt?.trim() ?? (content.trim().slice(0, 150) + '...'),
     tags: tags ?? [],
     updated_at: new Date().toISOString(),
   }).eq('slug', slug).select('slug')
