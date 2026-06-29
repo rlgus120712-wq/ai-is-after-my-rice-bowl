@@ -21,4 +21,5 @@ export interface BlogPost {
   published_at: string | null
   created_at: string
   updated_at: string
+  author_id: string | null
 }

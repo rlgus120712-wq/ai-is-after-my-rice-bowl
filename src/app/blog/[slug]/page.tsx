@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import MarkdownRenderer from '@/components/MarkdownRenderer'
+import PostActions from '@/components/PostActions'
 import { getBlogPost } from '@/lib/blog'
+import { createAuthClient } from '@/lib/supabase/middleware-server'
 
 export const dynamic = 'force-dynamic'
 
@@ -22,14 +24,20 @@ function formatDate(dateStr: string | null): string {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params
-  const post = await getBlogPost(slug)
+  const [post, supabase] = await Promise.all([getBlogPost(slug), createAuthClient()])
   if (!post) notFound()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  const isOwner = !!user && user.id === post.author_id
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-12">
-      <Link href="/blog" className="mb-8 inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300">
-        ← 블로그 목록
-      </Link>
+      <div className="mb-8 flex items-center justify-between">
+        <Link href="/blog" className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300">
+          ← 블로그 목록
+        </Link>
+        {isOwner && <PostActions slug={slug} />}
+      </div>
 
       <header className="mb-10">
         {post.tags.length > 0 && (

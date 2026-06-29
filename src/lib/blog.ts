@@ -7,7 +7,7 @@ export async function getBlogPosts(): Promise<Omit<BlogPost, 'content'>[]> {
   const supabase = createPublicSupabase()
   const { data, error } = await supabase
     .from('blog_posts')
-    .select('id, title, slug, excerpt, tags, published_at, created_at, updated_at, published')
+    .select('id, title, slug, excerpt, tags, published_at, created_at, updated_at, published, author_id')
     .eq('published', true)
     .order('published_at', { ascending: false })
 
