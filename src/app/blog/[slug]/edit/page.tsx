@@ -83,8 +83,8 @@ export default function EditBlogPostPage({ params }: { params: Promise<{ slug: s
         setErrors({ general: data.error ?? '수정에 실패했습니다' })
         return
       }
-      router.push(`/blog/${slug}`)
       router.refresh()
+      router.push(`/blog/${slug}`)
     } finally {
       setSubmitting(false)
     }

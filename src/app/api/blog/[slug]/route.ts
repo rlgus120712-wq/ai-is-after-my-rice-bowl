@@ -25,16 +25,16 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ sl
     return Response.json({ error: '제목과 내용은 필수입니다' }, { status: 400 })
   }
 
-  const { error: updateError } = await supabase.from('blog_posts').update({
+  const { data: updated, error: updateError } = await supabase.from('blog_posts').update({
     title: title.trim(),
     content: content.trim(),
     excerpt: excerpt?.trim() || content.trim().slice(0, 150) + '...',
     tags: tags ?? [],
     updated_at: new Date().toISOString(),
-  }).eq('slug', slug)
+  }).eq('slug', slug).select('slug')
 
-  if (updateError) {
-    console.error('Update post error:', updateError)
+  if (updateError || !updated?.length) {
+    console.error('Update post error:', updateError ?? 'no rows updated')
     return Response.json({ error: '수정에 실패했습니다' }, { status: 500 })
   }
 
