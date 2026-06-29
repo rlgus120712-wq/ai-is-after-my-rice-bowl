@@ -5,6 +5,7 @@ import MarkdownRenderer from '@/components/MarkdownRenderer'
 import { getBlogPost, getBlogPostSlugs } from '@/lib/blog'
 
 export const revalidate = 3600
+export const dynamicParams = true
 
 type Props = {
   params: Promise<{ slug: string }>

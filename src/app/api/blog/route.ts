@@ -41,5 +41,6 @@ export async function POST(request: Request) {
   }
 
   revalidatePath('/blog')
+  revalidatePath(`/blog/${data.slug}`)
   return Response.json({ slug: data.slug })
 }
