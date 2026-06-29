@@ -16,8 +16,8 @@ export async function POST(request: Request) {
     return Response.json({ error: '제목과 내용은 필수입니다' }, { status: 400 })
   }
 
-  // ASCII-only slug (한글 등 비ASCII 문자 제거) + 랜덤 suffix로 충돌 방지
-  const slug = title
+  // ASCII-only slug + 고유 suffix
+  const baseSlug = title
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
     .trim()
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     .replace(/-+/g, '-')
     .slice(0, 60)
     .replace(/^-|-$/g, '') || 'post'
-    + '-' + Date.now().toString(36)
+  const slug = `${baseSlug}-${Date.now().toString(36)}`
 
   const { data, error } = await supabase.from('blog_posts').insert({
     title: title.trim(),
