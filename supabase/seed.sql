@@ -8,7 +8,7 @@ VALUES
   'AI가 개발자의 일자리를 위협하는 시대, 살아남기 위해 개발자가 갖춰야 할 7가지 핵심 역량을 정리합니다.',
   ARRAY['생존전략', 'AI시대', '개발자'],
   true,
-  NOW() - INTERVAL ''2 days''
+  NOW() - '2 days'::interval
 ),
 (
   'MCP, RAG, Agent: 2026년 개발자가 알아야 할 핵심 AI 개념',
@@ -17,7 +17,7 @@ VALUES
   'MCP, RAG, Agent — AI 개발 생태계의 핵심 개념 세 가지를 실전 코드와 함께 명쾌하게 정리합니다.',
   ARRAY['MCP', 'RAG', 'Agent', 'AI개념'],
   true,
-  NOW() - INTERVAL ''1 day''
+  NOW() - '1 day'::interval
 ),
 (
   '프롬프트 엔지니어링의 미래: 사라지는가, 진화하는가',
