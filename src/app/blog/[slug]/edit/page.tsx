@@ -146,6 +146,7 @@ export default function EditBlogPostPage({ params }: { params: Promise<{ slug: s
               type="text"
               value={title}
               onChange={(e) => { setTitle(e.target.value); if (errors.title) setErrors(p => ({...p, title: undefined})) }}
+              placeholder="독자의 눈길을 끄는 제목을 입력하세요"
               className={`w-full rounded-xl border px-4 py-3.5 text-lg text-zinc-900 placeholder-zinc-400 outline-none transition-colors dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-600 ${
                 errors.title
                   ? 'border-red-400 bg-red-50 focus:border-red-500 dark:border-red-700 dark:bg-red-900/10'
@@ -173,6 +174,7 @@ export default function EditBlogPostPage({ params }: { params: Promise<{ slug: s
             <textarea
               value={content}
               onChange={(e) => { setContent(e.target.value); if (errors.content) setErrors(p => ({...p, content: undefined})) }}
+              placeholder={`## 들어가며\n\n본문을 마크다운으로 작성해주세요.\n\n## 소제목\n\n내용...`}
               rows={20}
               className={`w-full rounded-xl border px-4 py-3.5 font-mono text-base leading-relaxed text-zinc-900 placeholder-zinc-400 outline-none transition-colors dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-600 ${
                 errors.content
@@ -193,6 +195,7 @@ export default function EditBlogPostPage({ params }: { params: Promise<{ slug: s
               type="text"
               value={excerpt}
               onChange={(e) => setExcerpt(e.target.value)}
+              placeholder="글 목록에 표시될 요약문 (비우면 본문에서 자동 생성)"
               maxLength={200}
               className="w-full rounded-xl border border-zinc-300 bg-white px-4 py-3.5 text-base text-zinc-900 placeholder-zinc-400 outline-none transition-colors focus:border-violet-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-600"
             />
