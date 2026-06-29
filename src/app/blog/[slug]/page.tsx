@@ -2,18 +2,12 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import MarkdownRenderer from '@/components/MarkdownRenderer'
-import { getBlogPost, getBlogPostSlugs } from '@/lib/blog'
+import { getBlogPost } from '@/lib/blog'
 
-export const revalidate = 3600
-export const dynamicParams = true
+export const dynamic = 'force-dynamic'
 
 type Props = {
   params: Promise<{ slug: string }>
-}
-
-export async function generateStaticParams() {
-  const slugs = await getBlogPostSlugs()
-  return slugs.map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
