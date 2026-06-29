@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache'
 import { syncTrends } from '@/lib/trends'
 
 export async function GET(request: Request) {
@@ -10,6 +11,7 @@ export async function GET(request: Request) {
 
   try {
     const count = await syncTrends()
+    revalidatePath('/trends')
     return Response.json({ success: true, synced: count })
   } catch (error) {
     console.error('Sync error:', error)

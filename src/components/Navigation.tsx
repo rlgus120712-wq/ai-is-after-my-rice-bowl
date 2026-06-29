@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import AuthButton from './AuthButton'
 
 const links = [
   { href: '/', label: '홈' },
@@ -19,25 +20,28 @@ export default function Navigation() {
           <span className="text-lg">🍚</span>
           <span>밥그릇을 지켜라</span>
         </Link>
-        <ul className="flex items-center gap-1">
-          {links.map(({ href, label }) => {
-            const isActive = pathname === href
-            return (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
-                    isActive
-                      ? 'bg-violet-600 text-white'
-                      : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100'
-                  }`}
-                >
-                  {label}
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
+        <div className="flex items-center gap-3">
+          <ul className="flex items-center gap-1">
+            {links.map(({ href, label }) => {
+              const isActive = pathname === href
+              return (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className={`rounded-md px-3 py-1.5 text-sm transition-colors ${
+                      isActive
+                        ? 'bg-violet-600 text-white'
+                        : 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100'
+                    }`}
+                  >
+                    {label}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+          <AuthButton />
+        </div>
       </nav>
     </header>
   )
